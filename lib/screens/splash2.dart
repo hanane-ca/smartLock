@@ -15,12 +15,7 @@ class Splash2 extends StatelessWidget {
           width: _width,
           splashImage: 'assets/images/splash2.jpg',
           splashText: 'Manage the access',
-          nextFunction: () {
-            //Navigator.pushNamed(context, '/splash3');
-          },
-          skipFunction: () {
-            //Navigator.pushNamed(context, '/signIn');
-          },
+          route: '/splash3',
         ),
       ),
     );

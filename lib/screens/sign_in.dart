@@ -178,7 +178,7 @@ class _MyStatefulWidgetState extends State<SignIn> {
                                   fontSize: 17),
                             ),
                             onPressed: () {
-                              //signup screen
+                              Navigator.pushNamed(context, '/signUp');
                             },
                           ),
                         ],

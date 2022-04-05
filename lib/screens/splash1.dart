@@ -16,12 +16,7 @@ class Splash1 extends StatelessWidget {
           width: _width,
           splashImage: 'assets/images/splash1.jpg',
           splashText: 'Open door remotly',
-          nextFunction: () {
-            Navigator.pushNamed(context, '/splash2');
-          },
-          skipFunction: () {
-            //Navigator.pushNamed(context, '/signIn');
-          },
+          route: '/splash2',
         ),
       ),
     );

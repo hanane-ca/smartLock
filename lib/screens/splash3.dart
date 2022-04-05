@@ -15,10 +15,7 @@ class Splash3 extends StatelessWidget {
           width: _width,
           splashImage: 'assets/images/splash3.webp',
           splashText: 'Easy to use',
-          nextFunction: () {
-            //Navigator.pushNamed(context, '/signIn');
-          },
-          skipFunction: () {},
+          route: '/signIn',
           last: true,
         ),
       ),

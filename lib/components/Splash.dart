@@ -6,8 +6,7 @@ class SplashScreen extends StatelessWidget {
   final double height;
   final String splashImage;
   final String splashText;
-  final Function nextFunction;
-  final Function skipFunction;
+  final String route;
   final bool last;
 
   SplashScreen({
@@ -15,8 +14,7 @@ class SplashScreen extends StatelessWidget {
     required this.height,
     required this.splashImage,
     required this.splashText,
-    required this.nextFunction,
-    required this.skipFunction,
+    required this.route,
     this.last = false,
   });
 
@@ -71,7 +69,9 @@ class SplashScreen extends StatelessWidget {
                       size: 55,
                       color: kPurple,
                     ),
-                    onTap: nextFunction(),
+                    onTap: () {
+                      Navigator.pushNamed(context, route);
+                    },
                   ),
                   Visibility(
                     visible: !last,
@@ -81,7 +81,9 @@ class SplashScreen extends StatelessWidget {
                         style: TextStyle(
                             color: kLittleCircle, fontWeight: FontWeight.bold),
                       ),
-                      onTap: skipFunction(),
+                      onTap: () {
+                        Navigator.pushNamed(context, '/signIn');
+                      },
                     ),
                   ),
                 ],
