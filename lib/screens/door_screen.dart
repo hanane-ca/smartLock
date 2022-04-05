@@ -22,7 +22,7 @@ class _DoorScreenState extends State<DoorScreen> {
         child: Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           width: _width,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,

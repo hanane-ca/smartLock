@@ -140,9 +140,9 @@ class _MyStatefulWidgetState extends State<SignIn> {
                       ),
                       onPressed: () {
                         if (_formKey1.currentState!.validate()) {
-                          print("yessssssssssssss");
                           emailcontroller.clear();
                           passwordController.clear();
+                          Navigator.pushNamed(context, '/home');
                         }
                       },
                     ),
