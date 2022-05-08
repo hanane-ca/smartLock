@@ -8,15 +8,27 @@ import 'package:smartlock/screens/splash1.dart';
 import 'package:smartlock/screens/splash2.dart';
 import 'package:smartlock/screens/splash3.dart';
 import 'package:provider/provider.dart';
+import 'package:smartlock/screens/take_pic_screen.dart';
 import 'package:smartlock/screens/users_screen.dart';
 import 'data.dart';
+import 'package:camera/camera.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Obtain a list of the available cameras on the device.
+  final cameras = await availableCameras();
+
+  // Get a specific camera from the list of available cameras.
+  final firstCamera = cameras.first;
+  runApp(MyApp(
+    camera: firstCamera,
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  CameraDescription camera;
+  MyApp({Key? key, required this.camera}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +47,8 @@ class MyApp extends StatelessWidget {
           '/signUp': (context) => const SignUp(),
           '/home': (context) => const HomeScreen(),
           '/users': (context) => const UsersScreen(),
-          '/settings': (context) => const SettingsScreen()
+          '/settings': (context) => const SettingsScreen(),
+          '/camera': (context) => TakePictureScreen(camera: camera)
         },
       ),
     );

@@ -52,7 +52,9 @@ class _UsersScreenState extends State<UsersScreen> {
             Buttoon(
               texto: 'New user',
               color: kPurple,
-              onClick: () {},
+              onClick: () {
+                Navigator.pushNamed(context, '/camera');
+              },
             ),
             SizedBox(
               height: _height * 0.06,
