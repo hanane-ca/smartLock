@@ -19,12 +19,12 @@ class _MyStatefulWidgetState extends State<SignUp> {
   String password = '';
   String passwordConfirm = '';
   String doorCode = '';
+  final _formKey2 = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     double _height = MediaQuery.of(context).size.height;
     double _width = MediaQuery.of(context).size.width;
-    final _formKey2 = GlobalKey<FormState>();
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -139,12 +139,12 @@ class _MyStatefulWidgetState extends State<SignUp> {
                           },
                           validator: (String? val) {
                             String pattern =
-                                r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+                                r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$';
                             RegExp regExp = RegExp(pattern);
                             if (val!.isEmpty) {
                               return 'Enter your password';
                             } else if (!regExp.hasMatch(val)) {
-                              return 'Password must contain uppercase lowercase, digit, special caracter';
+                              return 'Password must contain uppercase lowercase & digit';
                             }
                             return null;
                           },

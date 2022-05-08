@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smartlock/const.dart';
 
+import '../components/button_costum.dart';
 import '../components/userCard.dart';
 
 class UsersScreen extends StatefulWidget {
@@ -18,30 +19,45 @@ class _UsersScreenState extends State<UsersScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: _width * 0.05, vertical: _height * 0.03),
-          child: ListView(children: [
-            UserCard(
-              height: _height,
-              width: _width,
-              name: 'Hanane CHRIF-EL-ASRI',
-              id: 'U-4814',
-              img: Image.asset(
-                'assets/images/girl.png',
+        body: Column(
+          children: [
+            Expanded(
+              child: Container(
+                height: _height * 0.5,
+                padding: EdgeInsets.symmetric(
+                    horizontal: _width * 0.05, vertical: _height * 0.03),
+                child: ListView(children: [
+                  UserCard(
+                    height: _height,
+                    width: _width,
+                    name: 'Hanane CHRIF-EL-ASRI',
+                    id: 'U-4814',
+                    img: Image.asset(
+                      'assets/images/girl.png',
+                    ),
+                  ),
+                  SizedBox(height: _height * 0.03),
+                  UserCard(
+                    height: _height,
+                    width: _width,
+                    name: 'Nicolas lbogoss',
+                    id: 'U-4856',
+                    img: Image.asset(
+                      'assets/images/boy.png',
+                    ),
+                  ),
+                ]),
               ),
             ),
-            SizedBox(height: _height * 0.03),
-            UserCard(
-              height: _height,
-              width: _width,
-              name: 'Nicolas lbogoss',
-              id: 'U-4856',
-              img: Image.asset(
-                'assets/images/boy.png',
-              ),
+            Buttoon(
+              texto: 'New user',
+              color: kPurple,
+              onClick: () {},
             ),
-          ]),
+            SizedBox(
+              height: _height * 0.06,
+            ),
+          ],
         ),
       ),
     );

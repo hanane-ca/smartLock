@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../const.dart';
+import 'button_costum.dart';
 
 class UserCard extends StatelessWidget {
   double height = 0;
@@ -72,30 +73,57 @@ class UserCard extends StatelessWidget {
               ),
             ),
             SizedBox(height: height * 0.02),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: width * 0.025),
-              margin: EdgeInsets.only(left: width * 0.25),
-              width: width * 0.25,
-              height: height * 0.04,
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.red),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.delete,
-                    color: Colors.red,
-                    size: width * 0.05,
-                  ),
-                  Expanded(
-                    child: Text(
-                      'Delete',
-                      style:
-                          TextStyle(color: Colors.red, fontSize: width * 0.045),
+            GestureDetector(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: width * 0.025),
+                margin: EdgeInsets.only(left: width * 0.25),
+                width: width * 0.25,
+                height: height * 0.04,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.red),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.delete,
+                      color: Colors.red,
+                      size: width * 0.05,
                     ),
+                    Expanded(
+                      child: Text(
+                        'Delete',
+                        style: TextStyle(
+                            color: Colors.red, fontSize: width * 0.045),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              onTap: () => showDialog<String>(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: const Text("Are you sure ?"),
+                  content: Icon(
+                    Icons.delete_forever,
+                    color: Colors.red,
+                    size: height * 0.08,
                   ),
-                ],
+                  actions: <Widget>[
+                    Buttoon(
+                      texto: 'Delete',
+                      color: Colors.red,
+                      onClick: () => Navigator.pop(context),
+                    ),
+                    SizedBox(width: height * 0.03),
+                    Buttoon(
+                      texto: 'Cancel',
+                      color: kPurple,
+                      onClick: () => Navigator.pop(context),
+                    ),
+                    SizedBox(width: height * 0.04),
+                  ],
+                ),
               ),
             ),
           ],
