@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:smartlock/screens/first_screen.dart';
 import 'package:smartlock/screens/home_screen.dart';
+import 'package:smartlock/screens/new_user_pic.dart';
+import 'package:smartlock/screens/new_user_screen.dart';
 import 'package:smartlock/screens/settings_screen.dart';
 import 'package:smartlock/screens/sign_in.dart';
 import 'package:smartlock/screens/sign_up.dart';
@@ -37,7 +39,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Smart Lock',
         debugShowCheckedModeBanner: false,
-        initialRoute: '/home',
+        initialRoute: '/',
         routes: {
           '/': (context) => const FirstScreen(),
           '/splash1': (context) => const Splash1(),
@@ -48,7 +50,9 @@ class MyApp extends StatelessWidget {
           '/home': (context) => const HomeScreen(),
           '/users': (context) => const UsersScreen(),
           '/settings': (context) => const SettingsScreen(),
-          '/camera': (context) => TakePictureScreen(camera: camera)
+          '/camera': (context) => TakePictureScreen(camera: camera),
+          '/newUserPic': (context) => const NewUserPic(),
+          '/newUserScreen': (context) => const NewUserScreen()
         },
       ),
     );

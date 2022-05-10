@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
 import '../const.dart';
 import 'button_costum.dart';
 
-class UserCard extends StatelessWidget {
+class UserCard extends StatefulWidget {
   double height = 0;
   double width = 0;
   String name = '';
@@ -20,9 +19,14 @@ class UserCard extends StatelessWidget {
       required this.img});
 
   @override
+  State<UserCard> createState() => _UserCardState();
+}
+
+class _UserCardState extends State<UserCard> {
+  @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(height * 0.015),
+      padding: EdgeInsets.all(widget.height * 0.015),
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
@@ -38,10 +42,10 @@ class UserCard extends StatelessWidget {
       child: Row(children: [
         Flexible(
           child: ClipRRect(
-            child: img,
+            child: widget.img,
           ),
         ),
-        SizedBox(width: width * 0.05),
+        SizedBox(width: widget.width * 0.05),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -53,12 +57,12 @@ class UserCard extends StatelessWidget {
               ),
             ),
             Text(
-              name,
+              widget.name,
               style: const TextStyle(
                 color: kDark,
               ),
             ),
-            SizedBox(height: height * 0.03),
+            SizedBox(height: widget.height * 0.03),
             const Text(
               'User ID',
               style: TextStyle(
@@ -67,18 +71,18 @@ class UserCard extends StatelessWidget {
               ),
             ),
             Text(
-              id,
+              widget.id,
               style: const TextStyle(
                 color: kDark,
               ),
             ),
-            SizedBox(height: height * 0.02),
+            SizedBox(height: widget.height * 0.02),
             GestureDetector(
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: width * 0.025),
-                margin: EdgeInsets.only(left: width * 0.25),
-                width: width * 0.25,
-                height: height * 0.04,
+                padding: EdgeInsets.symmetric(horizontal: widget.width * 0.025),
+                margin: EdgeInsets.only(left: widget.width * 0.25),
+                width: widget.width * 0.25,
+                height: widget.height * 0.04,
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.red),
                   borderRadius: BorderRadius.circular(10),
@@ -88,13 +92,13 @@ class UserCard extends StatelessWidget {
                     Icon(
                       Icons.delete,
                       color: Colors.red,
-                      size: width * 0.05,
+                      size: widget.width * 0.05,
                     ),
                     Expanded(
                       child: Text(
                         'Delete',
                         style: TextStyle(
-                            color: Colors.red, fontSize: width * 0.045),
+                            color: Colors.red, fontSize: widget.width * 0.045),
                       ),
                     ),
                   ],
@@ -107,7 +111,7 @@ class UserCard extends StatelessWidget {
                   content: Icon(
                     Icons.delete_forever,
                     color: Colors.red,
-                    size: height * 0.08,
+                    size: widget.height * 0.08,
                   ),
                   actions: <Widget>[
                     Buttoon(
@@ -115,13 +119,13 @@ class UserCard extends StatelessWidget {
                       color: Colors.red,
                       onClick: () => Navigator.pop(context),
                     ),
-                    SizedBox(width: height * 0.03),
+                    SizedBox(width: widget.height * 0.03),
                     Buttoon(
                       texto: 'Cancel',
                       color: kPurple,
                       onClick: () => Navigator.pop(context),
                     ),
-                    SizedBox(width: height * 0.04),
+                    SizedBox(width: widget.height * 0.04),
                   ],
                 ),
               ),
