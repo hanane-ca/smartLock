@@ -12,6 +12,7 @@ import 'package:smartlock/screens/splash3.dart';
 import 'package:provider/provider.dart';
 import 'package:smartlock/screens/take_pic_screen.dart';
 import 'package:smartlock/screens/users_screen.dart';
+import 'controllers/image_picker.dart';
 import 'data.dart';
 import 'package:camera/camera.dart';
 
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Smart Lock',
         debugShowCheckedModeBanner: false,
-        initialRoute: '/',
+        initialRoute: '/signUp',
         routes: {
           '/': (context) => const FirstScreen(),
           '/splash1': (context) => const Splash1(),
@@ -52,7 +53,8 @@ class MyApp extends StatelessWidget {
           '/settings': (context) => const SettingsScreen(),
           '/camera': (context) => TakePictureScreen(camera: camera),
           '/newUserPic': (context) => const NewUserPic(),
-          '/newUserScreen': (context) => const NewUserScreen()
+          '/newUserScreen': (context) => const NewUserScreen(),
+          //'/imgPicker': (context) => ImgPicker(),
         },
       ),
     );

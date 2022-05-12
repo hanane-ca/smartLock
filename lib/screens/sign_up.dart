@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../components/button_costum.dart';
 import '../components/textfield.dart';
 import '../const.dart';
 
@@ -179,14 +180,43 @@ class _MyStatefulWidgetState extends State<SignUp> {
                     margin:
                         const EdgeInsets.symmetric(horizontal: 90, vertical: 0),
                     child: ElevatedButton(
-                      child: const Text('Login'),
+                      child: const Text('Sign up'),
                       style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all<Color>(kPurple),
                       ),
                       onPressed: () {
                         if (_formKey2.currentState!.validate()) {
-                          print("tok! niiiiiice!");
+                          showDialog<String>(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: const Center(
+                                child: Text(
+                                  "Verification code",
+                                  style: TextStyle(
+                                    color: kDark,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              content: Textfields(
+                                height: _height,
+                                width: _width,
+                                hintText: "Enter code",
+                                suffixe: const Icon(Icons.key),
+                              ),
+                              actions: <Widget>[
+                                Buttoon(
+                                  texto: 'Send',
+                                  color: kPurple,
+                                  onClick: () => Navigator.pop(context),
+                                ),
+                                SizedBox(width: _width * 0.23),
+                              ],
+                            ),
+                          );
                           emailcontroller.clear();
                           passwordController.clear();
                           passwordConfirmController.clear();
