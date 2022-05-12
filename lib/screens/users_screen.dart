@@ -53,7 +53,7 @@ class _UsersScreenState extends State<UsersScreen> {
               texto: 'New user',
               color: kPurple,
               onClick: () {
-                Navigator.pushNamed(context, '/camera');
+                Navigator.pushNamed(context, '/newUserPic');
               },
             ),
             SizedBox(

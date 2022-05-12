@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smartlock/components/upload_img.dart';
 import 'package:smartlock/const.dart';
+import 'package:image_picker/image_picker.dart';
 
 class NewUserPic extends StatefulWidget {
   const NewUserPic({Key? key}) : super(key: key);
@@ -10,10 +11,13 @@ class NewUserPic extends StatefulWidget {
 }
 
 class _NewUserPicState extends State<NewUserPic> {
+  PickedFile? imageFile;
+
   @override
   Widget build(BuildContext context) {
     double _height = MediaQuery.of(context).size.height;
     double _width = MediaQuery.of(context).size.width;
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -44,7 +48,16 @@ class _NewUserPicState extends State<NewUserPic> {
                 text: "Upload file",
                 icon: Icons.upload_file_rounded,
                 buttonText: "Upload",
-                onclick: () {},
+                onclick: () async {
+                  final pickedFile = await ImagePicker().getImage(
+                    source: ImageSource.gallery,
+                  );
+                  setState(() {
+                    imageFile = pickedFile!;
+                  });
+                  print("GAlleryyyyyyyyyyy");
+                  print(imageFile!.path);
+                },
               ),
               const Text(
                 "------------------ OR ------------------",
@@ -56,7 +69,16 @@ class _NewUserPicState extends State<NewUserPic> {
                 text: "Open camera",
                 icon: Icons.camera_alt,
                 buttonText: "Camera",
-                onclick: () {},
+                onclick: () async {
+                  final pickedFile = await ImagePicker().getImage(
+                    source: ImageSource.camera,
+                  );
+                  setState(() {
+                    imageFile = pickedFile!;
+                  });
+                  print("GAlleryyyyyyyyyyy");
+                  print(imageFile!.path);
+                },
               ),
             ],
           ),
