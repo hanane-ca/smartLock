@@ -1,4 +1,9 @@
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:smartlock/amplifyconfiguration.dart';
+import 'package:smartlock/components/auth_credentials.dart';
+import 'package:smartlock/components/auth_service.dart';
 import 'package:smartlock/screens/first_screen.dart';
 import 'package:smartlock/screens/home_screen.dart';
 import 'package:smartlock/screens/new_user_pic.dart';
@@ -19,9 +24,19 @@ Future<void> main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
 
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  //MyApp({Key? key}) : super(key: key);
+  final _authService = AuthService();
+  void initState() {
+    super.initState();
+    _configureAmplify();
+  }
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -35,15 +50,25 @@ class MyApp extends StatelessWidget {
           '/splash1': (context) => const Splash1(),
           '/splash2': (context) => const Splash2(),
           '/splash3': (context) => const Splash3(),
-          '/signIn': (context) => const SignIn(),
-          '/signUp': (context) => const SignUp(),
+          '/signIn': (context) => SignIn(didProvideCredentials: _authService.loginWithCredentials),
+          '/signUp': (context) => SignUp(didProvideCredentials: _authService.signUpWithCredentials, didVerify: _authService.verifyCode),
           '/home': (context) => const HomeScreen(),
           '/users': (context) => const UsersScreen(),
-          '/settings': (context) => const SettingsScreen(),
+          '/settings': (context) => SettingsScreen(shoudLogOut: _authService.logOut),
           '/newUserPic': (context) => const NewUserPic(),
           '/newUserScreen': (context) => const NewUserScreen(),
         },
       ),
     );
   }
+  void _configureAmplify() async {
+    Amplify.addPlugin(AmplifyAuthCognito());
+    try {
+      await Amplify.configure(amplifyconfig);
+      print("Amplify SUCCESS");
+    } catch (e) {
+      print("Amplify Failure : $e");
+    }
+  }
+
 }

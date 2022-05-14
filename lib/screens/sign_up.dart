@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smartlock/components/auth_credentials.dart';
+import 'package:smartlock/screens/sign_in.dart';
 import '../components/button_costum.dart';
 import '../components/textfield.dart';
 import '../const.dart';
@@ -6,11 +8,13 @@ import '../const.dart';
 final emailcontroller = TextEditingController();
 final passwordController = TextEditingController();
 final passwordConfirmController = TextEditingController();
-final doorCodecontroller = TextEditingController();
+final userNameController = TextEditingController();
+final verifyCodeController = TextEditingController();
 
 class SignUp extends StatefulWidget {
-  const SignUp({Key? key}) : super(key: key);
-
+  final ValueChanged<SignUpCredentials> didProvideCredentials;
+  final ValueChanged<String> didVerify;
+  SignUp({Key? key, required this.didProvideCredentials, required this.didVerify}) : super(key: key);
   @override
   State<SignUp> createState() => _MyStatefulWidgetState();
 }
@@ -19,7 +23,7 @@ class _MyStatefulWidgetState extends State<SignUp> {
   String email = '';
   String password = '';
   String passwordConfirm = '';
-  String doorCode = '';
+  String username = '';
   final _formKey2 = GlobalKey<FormState>();
 
   @override
@@ -78,7 +82,7 @@ class _MyStatefulWidgetState extends State<SignUp> {
                     child: Column(
                       children: [
                         Textfields(
-                          hintText: 'Enter door code',
+                          hintText: 'Enter your camera code',
                           suffixe: const Icon(
                             Icons.lock,
                             color: kDark,
@@ -86,13 +90,13 @@ class _MyStatefulWidgetState extends State<SignUp> {
                           ),
                           height: _height,
                           width: _width,
-                          controller: doorCodecontroller,
+                          controller: userNameController,
                           onChanged: (value) {
-                            doorCode = value;
+                            username = value;
                           },
                           validator: (String? val) {
                             if (val!.length < 7) {
-                              return 'Entre a valid code';
+                              return 'Entre a valid camera code';
                             } else {
                               return null;
                             }
@@ -187,6 +191,7 @@ class _MyStatefulWidgetState extends State<SignUp> {
                       ),
                       onPressed: () {
                         if (_formKey2.currentState!.validate()) {
+                          _signUp();
                           showDialog<String>(
                             context: context,
                             barrierDismissible: false,
@@ -202,6 +207,7 @@ class _MyStatefulWidgetState extends State<SignUp> {
                                 ),
                               ),
                               content: Textfields(
+                                controller: verifyCodeController,
                                 height: _height,
                                 width: _width,
                                 hintText: "Enter code",
@@ -211,7 +217,7 @@ class _MyStatefulWidgetState extends State<SignUp> {
                                 Buttoon(
                                   texto: 'Send',
                                   color: kPurple,
-                                  onClick: () => Navigator.pop(context),
+                                  onClick: () => _verify(),
                                 ),
                                 SizedBox(width: _width * 0.23),
                               ],
@@ -220,7 +226,7 @@ class _MyStatefulWidgetState extends State<SignUp> {
                           emailcontroller.clear();
                           passwordController.clear();
                           passwordConfirmController.clear();
-                          doorCodecontroller.clear();
+                          userNameController.clear();
                         }
                       },
                     ),
@@ -254,5 +260,19 @@ class _MyStatefulWidgetState extends State<SignUp> {
         ),
       ),
     );
+  }
+
+  void _verify() {
+    final verifyCode = verifyCodeController.text.trim();
+    widget.didVerify(verifyCode);
+  }
+
+  void _signUp() {
+    final username = userNameController.text.trim();
+    final email = emailcontroller.text.trim();
+    final password = passwordConfirmController.text.trim();
+
+    final credentials = SignUpCredentials(username: username, password: password, email: email);
+    widget.didProvideCredentials(credentials);
   }
 }

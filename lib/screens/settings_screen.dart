@@ -6,7 +6,8 @@ import '../data.dart';
 import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+  final VoidCallback shoudLogOut;
+  SettingsScreen({Key? key, required this.shoudLogOut}) : super(key: key);
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -42,6 +43,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 GestureDetector(
                   onTap: () {
+                    _logOut();
                     Navigator.pushNamed(context, '/signIn');
                   },
                   child: const Setting(
@@ -55,5 +57,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
       ),
     );
+  }
+
+  void _logOut() {
+    widget.shoudLogOut();
   }
 }

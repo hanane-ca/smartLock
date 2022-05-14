@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:smartlock/components/auth_service.dart';
 import 'package:smartlock/screens/door_screen.dart';
 import 'package:smartlock/screens/settings_screen.dart';
 import 'package:smartlock/screens/users_screen.dart';
 
 class DataCenter extends ChangeNotifier {
   //for bottom nav bar
-
   int selectedIndex = 0;
 
   List<Widget> initialWidgets = <Widget>[
     const DoorScreen(),
     const UsersScreen(),
-    const SettingsScreen(),
+    SettingsScreen(shoudLogOut: () { final _authService = AuthService();
+      _authService.logOut();},),
   ];
 
   void onItemTapped(int index) {
