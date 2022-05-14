@@ -6,9 +6,9 @@ import 'package:smartlock/components/auth_credentials.dart';
 
 class AuthService {
   late AuthCredentials _credentials;
-
   void loginWithCredentials(AuthCredentials credentials) async{
     try {
+      print(credentials.username + credentials.password + "AAAAAAAAA");
       final result = await Amplify.Auth.signIn(username: credentials.username, password: credentials.password);
 
       if (result.isSignedIn) {
@@ -19,6 +19,7 @@ class AuthService {
     } on AuthException catch(e) {
       print('Could not login - ${e}');
     }
+
   }
 
   void signUpWithCredentials(SignUpCredentials credentials) async{
@@ -56,12 +57,27 @@ class AuthService {
     }
   }
 
-  void logOut() {
-    print("DDDD");
+  void logOut() async{
+    try {
+      await Amplify.Auth.signOut();
+
+    } on AuthException catch (authError) {
+      print('could not log out - ${authError}');
+    }
   }
 
 
-  void checkAuthStatus() {
-    print("EEE");
-}
+  Future<bool> checkAuthStatus() async{
+    print("xxxxxxxxxxxxxxxxxxxxxxx");
+    try {
+      final AuthUser user = await Amplify.Auth.getCurrentUser();
+      if (user != null) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
 }

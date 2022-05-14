@@ -1,3 +1,4 @@
+
 abstract class AuthCredentials {
   final String username;
   final String password;

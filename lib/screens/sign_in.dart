@@ -90,11 +90,10 @@ class _MyStatefulWidgetState extends State<SignIn> {
                           },
                           validator: (String? val) {
                             const pattern =
-                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
+                                r"^([0-9]){8}$";
                             if (val != null && val.isEmpty) {
                               return 'Entrez une adresse mail valide';
-                            } else if (!RegExp(pattern).hasMatch(val!) ||
-                                val.toString().length < 10) {
+                            } else if (!RegExp(pattern).hasMatch(val!)) {
                               return 'Entrez votre email';
                             } else {
                               return null;
@@ -143,9 +142,9 @@ class _MyStatefulWidgetState extends State<SignIn> {
                       ),
                       onPressed: () {
                         if (_formKey1.currentState!.validate()) {
+                          _login();
                           userNameController.clear();
                           passwordController.clear();
-                          _login();
                           Navigator.pushNamed(context, '/home');
                         }
                       },
@@ -200,6 +199,7 @@ class _MyStatefulWidgetState extends State<SignIn> {
   void _login() {
     final username = userNameController.text.trim();
     final password = passwordController.text.trim();
+    print(username + password);
     final credentials = LoginCredentials(username: username, password: password);
     widget.didProvideCredentials(credentials);
   }

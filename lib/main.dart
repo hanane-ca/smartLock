@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         title: 'Smart Lock',
         debugShowCheckedModeBanner: false,
-        initialRoute: '/home',
+        initialRoute: '/',
         routes: {
           '/': (context) => const FirstScreen(),
           '/splash1': (context) => const Splash1(),
@@ -70,5 +70,4 @@ class _MyAppState extends State<MyApp> {
       print("Amplify Failure : $e");
     }
   }
-
 }
