@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import '../const.dart';
 import 'button_costum.dart';
@@ -7,15 +8,13 @@ class UserCard extends StatefulWidget {
   double width = 0;
   String name = '';
   String id = '';
-  Image img = Image.asset(
-    'assets/images/boy.png',
-  );
+  Image img;
 
   UserCard(
       {required this.height,
       required this.width,
       required this.name,
-      required this.id,
+      //required this.id,
       required this.img});
 
   @override

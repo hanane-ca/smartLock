@@ -14,6 +14,12 @@
     "categories": {
       "auth": {
         "smartlockd3236d9f": {}
+      },
+      "storage": {
+        "smartlockc7f04d4e": {
+          "bucketName": "bucket-emse-price-cv2022",
+          "region": "eu-west-3"
+        }
       }
     }
   }

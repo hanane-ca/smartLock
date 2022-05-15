@@ -24,5 +24,13 @@
         ]
       }
     }
+  },
+  "storage": {
+    "smartlockc7f04d4e": {
+      "service": "S3",
+      "serviceType": "imported",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
+    }
   }
 }

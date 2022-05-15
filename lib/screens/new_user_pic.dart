@@ -4,8 +4,8 @@ import 'package:smartlock/const.dart';
 import 'package:image_picker/image_picker.dart';
 
 class NewUserPic extends StatefulWidget {
-  const NewUserPic({Key? key}) : super(key: key);
-
+  NewUserPic({Key? key, required this.didProvideImagePath}) : super(key: key);
+  final ValueChanged<String>  didProvideImagePath;
   @override
   State<NewUserPic> createState() => _NewUserPicState();
 }
@@ -57,6 +57,7 @@ class _NewUserPicState extends State<NewUserPic> {
                   });
                   print("GAlleryyyyyyyyyyy");
                   print(imageFile!.path);
+                  _uploadPhoto(imageFile!.path);
                 },
               ),
               const Text(
@@ -78,6 +79,7 @@ class _NewUserPicState extends State<NewUserPic> {
                   });
                   print("GAlleryyyyyyyyyyy");
                   print(imageFile!.path);
+                  _uploadPhoto(imageFile!.path);
                 },
               ),
             ],
@@ -85,5 +87,11 @@ class _NewUserPicState extends State<NewUserPic> {
         ),
       ),
     );
+  }
+
+  _uploadPhoto(String imagePath) {
+    print('YYYYYYyyyYY');
+    print(imagePath);
+    widget.didProvideImagePath(imagePath);
   }
 }
