@@ -57,7 +57,7 @@ class _MyAppState extends State<MyApp> {
           '/signIn': (context) => SignIn(didProvideCredentials: _authService.loginWithCredentials),
           '/signUp': (context) => SignUp(didProvideCredentials: _authService.signUpWithCredentials, didVerify: _authService.verifyCode),
           '/home': (context) => const HomeScreen(),
-          '/users': (context) => UsersScreen(imgUrlsController: _storageService.imageUrlsController),
+          '/users': (context) => UsersScreen(/*imgUrlsController: _storageService.imageUrlsController*/),
           '/settings': (context) => SettingsScreen(shoudLogOut: _authService.logOut),
           '/newUserPic': (context) => NewUserPic(didProvideImagePath: _storageService.uploadImageAtPath),
           '/newUserScreen': (context) => const NewUserScreen(),

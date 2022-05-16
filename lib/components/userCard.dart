@@ -1,4 +1,5 @@
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../const.dart';
 import 'button_costum.dart';
@@ -8,7 +9,7 @@ class UserCard extends StatefulWidget {
   double width = 0;
   String name = '';
   String id = '';
-  Image img;
+  CachedNetworkImage img;
 
   UserCard(
       {required this.height,

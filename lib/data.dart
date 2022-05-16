@@ -14,11 +14,11 @@ class DataCenter extends ChangeNotifier {
 
   List<Widget> initialWidgets = <Widget>[
     const DoorScreen(),
-    UsersScreen(imgUrlsController: () {
+    UsersScreen(/*imgUrlsController: () {
       final _storageService = StorageService();
       _storageService.getImages();
       return _storageService.imageUrlsController;
-    }.call()),
+    }.call()*/),
     SettingsScreen(shoudLogOut: () { final _authService = AuthService();
       _authService.logOut();},),
   ];
