@@ -36,7 +36,7 @@ class DataCenter extends ChangeNotifier {
     notifyListeners();
   }
 
-  StreamController<List<String>> _getUrl() {
+  StreamController<List<List<String>>> _getUrl() {
     _storageService.getImages();
     return _storageService.imageUrlsController;
   }

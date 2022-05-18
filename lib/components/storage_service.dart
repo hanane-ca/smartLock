@@ -7,7 +7,7 @@ import 'package:rxdart/rxdart.dart';
 
 class StorageService {
   // 1
-  final StreamController<List<String>> imageUrlsController = BehaviorSubject();
+  final StreamController<List<List<String>>> imageUrlsController = BehaviorSubject();
 
   // 2
   void getImages() async {
@@ -21,11 +21,12 @@ class StorageService {
       final getUrlOptions =
       GetUrlOptions(accessLevel: StorageAccessLevel.private);
       // 6
-      final List<String> imageUrls =
+      final List<List<String>> imageUrls =
       await Future.wait(result.items.map((item) async {
         final urlResult =
         await Amplify.Storage.getUrl(key: item.key, options: getUrlOptions);
-        return urlResult.url;
+        List<String> result = ['${item.key}', '${urlResult.url}'];
+        return result;
       }));
 
       // 7
@@ -37,13 +38,17 @@ class StorageService {
     }
   }
 
-  void uploadImageAtPath(String imagePath) async {
+  void uploadImageAtPath(List<String> values) async {
+    final imagePath = values[0];
+    final userName = values[1];
+
+
 
     print("xXxXxXx");
     print(imagePath);
     final imageFile = File(imagePath);
     // 2
-    final imageKey = '${DateTime.now().millisecondsSinceEpoch}.jpg';
+    final imageKey = '${userName}.jpg';
 
     try {
       // 3
@@ -58,6 +63,17 @@ class StorageService {
       getImages();
     } catch (e) {
       print('upload error - $e');
+    }
+  }
+
+  void deleteAtPath(String url) async{
+
+    try {
+
+      final options = RemoveOptions(accessLevel: StorageAccessLevel.private);
+      await Amplify.Storage.remove(key: url, options: options);
+    } catch (e) {
+      print('remove error - ${e}');
     }
   }
 }

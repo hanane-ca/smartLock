@@ -72,7 +72,7 @@ class _UsersScreenState extends State<UsersScreen> {
     double _width = MediaQuery.of(context).size.width;
     final StorageService _storageService = StorageService();
     _storageService.getImages();
-    StreamController<List<String>> _imgUrlsController = _storageService.imageUrlsController;
+    StreamController<List<List<String>>> _imgUrlsController = _storageService.imageUrlsController;
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -89,7 +89,7 @@ class _UsersScreenState extends State<UsersScreen> {
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.active) {
                         if (snapshot.hasData) {
-                          List<String> items = snapshot.data as List<String>;
+                          List<List<String>> items = snapshot.data as List<List<String>>;
 
                           String string = snapshot.data.toString();
                           print("has data ${snapshot.data.toString()}");
@@ -97,11 +97,13 @@ class _UsersScreenState extends State<UsersScreen> {
                             itemCount: items.length,
                             itemBuilder: (context, index) {
                               return UserCard(
+                                  wantToDelete: _storageService.deleteAtPath,
+                                  id: items[index][0],
                                   height: _height,
                                   width: _width,
-                                  name: items[index].substring(0,10),
+                                  name: items[index][0].substring(0,items[index][0].length-4),
                                   img: CachedNetworkImage(
-                                    imageUrl: items[index],
+                                    imageUrl: items[index][1],
                                     fit: BoxFit.cover,
                                     placeholder: (context, url) => Container(
                                         alignment: Alignment.center,
