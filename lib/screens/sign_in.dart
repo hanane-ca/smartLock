@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:smartlock/components/auth_credentials.dart';
 import '../components/textfield.dart';
 import '../const.dart';
 
-final emailcontroller = TextEditingController();
+final userNameController = TextEditingController();
 final passwordController = TextEditingController();
 
 class SignIn extends StatefulWidget {
-  const SignIn({Key? key}) : super(key: key);
 
+  final ValueChanged<LoginCredentials> didProvideCredentials;
+
+  SignIn({Key? key, required this.didProvideCredentials}) : super(key: key);
   @override
   State<SignIn> createState() => _MyStatefulWidgetState();
 }
 
 class _MyStatefulWidgetState extends State<SignIn> {
-  String email = '';
+  String username = '';
   String password = '';
   final _formKey1 = GlobalKey<FormState>();
 
@@ -73,25 +76,24 @@ class _MyStatefulWidgetState extends State<SignIn> {
                     child: Column(
                       children: [
                         Textfields(
-                          hintText: 'Enter email address',
+                          hintText: 'Enter username (Code Camera)',
                           suffixe: const Icon(
-                            Icons.email,
+                            Icons.lock,
                             color: kDark,
                             size: 25,
                           ),
                           height: _height,
                           width: _width,
-                          controller: emailcontroller,
+                          controller: userNameController,
                           onChanged: (value) {
-                            email = value;
+                            username = value;
                           },
                           validator: (String? val) {
                             const pattern =
-                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
+                                r"^([0-9]){8}$";
                             if (val != null && val.isEmpty) {
                               return 'Entrez une adresse mail valide';
-                            } else if (!RegExp(pattern).hasMatch(val!) ||
-                                val.toString().length < 10) {
+                            } else if (!RegExp(pattern).hasMatch(val!)) {
                               return 'Entrez votre email';
                             } else {
                               return null;
@@ -140,7 +142,8 @@ class _MyStatefulWidgetState extends State<SignIn> {
                       ),
                       onPressed: () {
                         if (_formKey1.currentState!.validate()) {
-                          emailcontroller.clear();
+                          _login();
+                          userNameController.clear();
                           passwordController.clear();
                           Navigator.pushNamed(context, '/home');
                         }
@@ -192,5 +195,12 @@ class _MyStatefulWidgetState extends State<SignIn> {
         ),
       ),
     );
+  }
+  void _login() {
+    final username = userNameController.text.trim();
+    final password = passwordController.text.trim();
+    print(username + password);
+    final credentials = LoginCredentials(username: username, password: password);
+    widget.didProvideCredentials(credentials);
   }
 }

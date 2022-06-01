@@ -3,16 +3,20 @@ import 'package:smartlock/components/upload_img.dart';
 import 'package:smartlock/const.dart';
 import 'package:image_picker/image_picker.dart';
 
-class NewUserPic extends StatefulWidget {
-  const NewUserPic({Key? key}) : super(key: key);
+import '../components/textfield.dart';
 
+final userNameController = TextEditingController();
+
+class NewUserPic extends StatefulWidget {
+  NewUserPic({Key? key, required this.didProvideImagePath}) : super(key: key);
+  final ValueChanged<List<String>>  didProvideImagePath;
   @override
   State<NewUserPic> createState() => _NewUserPicState();
 }
 
 class _NewUserPicState extends State<NewUserPic> {
   PickedFile? imageFile;
-
+  String username = '';
   @override
   Widget build(BuildContext context) {
     double _height = MediaQuery.of(context).size.height;
@@ -42,6 +46,27 @@ class _NewUserPicState extends State<NewUserPic> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
+              Textfields(
+                hintText: 'Enter your camera code',
+                suffixe: const Icon(
+                  Icons.lock,
+                  color: kDark,
+                  size: 25,
+                ),
+                height: _height,
+                width: _width,
+                controller: userNameController,
+                onChanged: (value) {
+                  username = value;
+                },
+                validator: (String? val) {
+                  if (val!.length < 7) {
+                    return 'Entre a valid camera code';
+                  } else {
+                    return null;
+                  }
+                },
+              ),
               UploadImg(
                 height: _height,
                 width: _width,
@@ -57,6 +82,7 @@ class _NewUserPicState extends State<NewUserPic> {
                   });
                   print("GAlleryyyyyyyyyyy");
                   print(imageFile!.path);
+                  _uploadPhoto(imageFile!.path);
                 },
               ),
               const Text(
@@ -78,6 +104,7 @@ class _NewUserPicState extends State<NewUserPic> {
                   });
                   print("GAlleryyyyyyyyyyy");
                   print(imageFile!.path);
+                  _uploadPhoto(imageFile!.path);
                 },
               ),
             ],
@@ -85,5 +112,15 @@ class _NewUserPicState extends State<NewUserPic> {
         ),
       ),
     );
+  }
+
+  _uploadPhoto(String imagePath) {
+    print('YYYYYYyyyYY');
+    print(imagePath);
+
+    final username = userNameController.text.trim();
+    userNameController.clear();
+    final List<String> values = ['${imagePath}', '${username}'];
+    widget.didProvideImagePath(values);
   }
 }

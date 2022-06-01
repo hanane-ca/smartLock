@@ -1,3 +1,5 @@
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../const.dart';
 import 'button_costum.dart';
@@ -7,16 +9,17 @@ class UserCard extends StatefulWidget {
   double width = 0;
   String name = '';
   String id = '';
-  Image img = Image.asset(
-    'assets/images/boy.png',
-  );
+  CachedNetworkImage img;
+
+  final ValueChanged<String> wantToDelete;
 
   UserCard(
       {required this.height,
       required this.width,
       required this.name,
       required this.id,
-      required this.img});
+      required this.img,
+      required this.wantToDelete});
 
   @override
   State<UserCard> createState() => _UserCardState();
@@ -62,7 +65,7 @@ class _UserCardState extends State<UserCard> {
                 color: kDark,
               ),
             ),
-            SizedBox(height: widget.height * 0.03),
+            /*SizedBox(height: widget.height * 0.03),
             const Text(
               'User ID',
               style: TextStyle(
@@ -75,7 +78,7 @@ class _UserCardState extends State<UserCard> {
               style: const TextStyle(
                 color: kDark,
               ),
-            ),
+            ),*/
             SizedBox(height: widget.height * 0.02),
             GestureDetector(
               child: Container(
@@ -117,7 +120,10 @@ class _UserCardState extends State<UserCard> {
                     Buttoon(
                       texto: 'Delete',
                       color: Colors.red,
-                      onClick: () => Navigator.pop(context),
+                      onClick: () {
+
+                        _delete(widget.id);
+                        Navigator.pop(context);},
                     ),
                     SizedBox(width: widget.height * 0.03),
                     Buttoon(
@@ -134,5 +140,9 @@ class _UserCardState extends State<UserCard> {
         ),
       ]),
     );
+  }
+
+  void _delete(String url) {
+    widget.wantToDelete(url);
   }
 }

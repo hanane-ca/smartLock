@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:smartlock/components/auth_service.dart';
 import '../const.dart';
 
 class FirstScreen extends StatefulWidget {
   const FirstScreen({Key? key}) : super(key: key);
-
   @override
   State<FirstScreen> createState() => _MyStatefulWidgetState();
 }
 
 class _MyStatefulWidgetState extends State<FirstScreen> {
+  String nextPath = '';
+  void initState() {
+    super.initState();
+    _configureAuth();
+  }
   @override
   Widget build(BuildContext context) {
     double _height = MediaQuery.of(context).size.height;
@@ -69,7 +74,7 @@ class _MyStatefulWidgetState extends State<FirstScreen> {
                     children: <Widget>[
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, '/splash1');
+                          Navigator.pushNamed(context, nextPath);
                         },
                         child: const Text(
                           'Next',
@@ -80,7 +85,7 @@ class _MyStatefulWidgetState extends State<FirstScreen> {
                       SizedBox(width: _width * 0.05),
                       GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(context, '/splash1');
+                            Navigator.pushNamed(context, nextPath);
                           },
                           child: const Icon(Icons.arrow_circle_right_sharp,
                               size: 45)),
@@ -93,5 +98,17 @@ class _MyStatefulWidgetState extends State<FirstScreen> {
         ),
       ),
     );
+  }
+  void _configureAuth() async{
+    AuthService _authService = AuthService();
+    await Future.delayed(const Duration(seconds: 2), (){});
+    bool isAuth = await _authService.checkAuthStatus();
+    if (isAuth) {
+      print("alreadyAuth");
+      nextPath = '/home';
+    } else {
+      print("NEW");
+      nextPath = '/splash1';
+    }
   }
 }
